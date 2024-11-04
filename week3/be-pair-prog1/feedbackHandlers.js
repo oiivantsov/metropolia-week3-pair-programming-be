@@ -1,29 +1,70 @@
 const Feedback = require("./feedbackLib");
 
 const getAllFeedbacks = (req, res) => {
-    res.json({ message: "Hello from getAllFeedbacks" });
+    const feedbacks = Feedback.getAllFeedbacks();
+    res.json(feedbacks);
 };
 
 const createFeedback = (req, res) => {
-    res.json({ message: "Hello from createFeedback" });
+    const { sender, message, rating } = req.body;
+    const newFeedback = Feedback.createFeedback(sender, message, rating);
+
+    if (newFeedback) {
+        res.json(newFeedback);
+    } else {
+        res.status(500);
+    }
+
 };
 
 const getFeedbackById = (req, res) => {
-    res.json({ message: "Hello from getFeedbackById" });
+    const feedbackId = Number(req.params.feedbackId);
+
+    const response = Feedback.getFeedbackById(feedbackId);
+    if (response) {
+        res.json(response);
+    } else {
+        res.status(500);
+    }
 };
 
 const updateFeedback = (req, res) => {
-    res.json({ message: "Hello from updateFeedback" });
+
+    const feedbackId = req.params.feedbackId;
+    const { sender, message, rating } = req.body;
+
+    const response = Feedback.updateFeedback(feedbackId,
+        {
+            sender,
+            message,
+            rating
+        }
+    );
+
+    if (response) {
+        res.json(response);
+    } else {
+        res.status(500);
+    }
 };
 
 const deleteFeedback = (req, res) => {
-    res.json({ message: "Hello from deleteFeedback" });
+
+    const feedbackId = req.params.feedbackId;
+
+    const response = Feedback.deleteFeedback(feedbackId);
+
+    if (response) {
+        res.json(response);
+    } else {
+        res.status(500);
+    }
 };
 
 module.exports = {
-  getAllFeedbacks,
-  getFeedbackById,
-  createFeedback,
-  updateFeedback,
-  deleteFeedback,
+    getAllFeedbacks,
+    getFeedbackById,
+    createFeedback,
+    updateFeedback,
+    deleteFeedback,
 };
