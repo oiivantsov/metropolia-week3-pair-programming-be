@@ -1,4 +1,4 @@
-const { getTourById, updateTour, deleteTour, createTour } = require("./tourHandlers");
+//const { getTourById, updateTour, deleteTour, createTour } = require("./tourHandlers");
 
 //if (require.main === module) {
 //    let result = addOne("7 Days Tour", " Join us for the Best of Helsinki!", "https://www.course-api.com/images/tours/tour-x.jpeg", "1,495");
@@ -40,7 +40,7 @@ function updateTour(id, updatedTour) {
     const feedback = getFeedbackById(id);
 
     if (!feedback) return false;
-    
+
     if (tour.sender) tour.sender = updatedTour.sender;
     if (tour.message) tour.message = updatedTour.message;
     if (tour.rating) tour.rating = updatedTour.rating;
